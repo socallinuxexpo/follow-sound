@@ -1,6 +1,6 @@
 CC=gcc
 CFLAGS=-O2 -march=native -pipe
-LDFLAGS=-lxcb-icccm -lxcb-atom -lxcb-property -lxcb-event -lxcb
+LDFLAGS=-lxcb-icccm -lxcb
 all: follow-sound
 
 follow-sound: follow-sound.c

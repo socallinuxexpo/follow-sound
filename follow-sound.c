@@ -410,23 +410,23 @@ void xcb_config_event_property_update(xcb_config_t* config)
         if (reply)
         {
                 xcb_get_property_cookie_t cookie_wm_class =
-                        xcb_get_wm_class_unchecked(config->connection, reply->focus);
-                xcb_get_wm_class_reply_t reply_wm_class;
+                        xcb_icccm_get_wm_class_unchecked(config->connection, reply->focus);
+                xcb_icccm_get_wm_class_reply_t reply_wm_class;
 		xcb_get_property_cookie_t cookie_wm_name;
-		xcb_get_text_property_reply_t wm_name_reply;
+		xcb_icccm_get_text_property_reply_t wm_name_reply;
 
-                if (xcb_get_wm_class_reply(config->connection,
+                if (xcb_icccm_get_wm_class_reply(config->connection,
                                 cookie_wm_class, &reply_wm_class, NULL))
-                        xcb_get_wm_class_reply_wipe(&reply_wm_class);
+                        xcb_icccm_get_wm_class_reply_wipe(&reply_wm_class);
                 else
                         /* focus is set to a child window */
                         xcb_config_find_parent(config, &reply->focus);
 
                 cookie_wm_class =
-                        xcb_get_wm_class_unchecked(config->connection,
+                        xcb_icccm_get_wm_class_unchecked(config->connection,
                                 reply->focus);
 
-                if (xcb_get_wm_class_reply(config->connection,
+                if (xcb_icccm_get_wm_class_reply(config->connection,
                                 cookie_wm_class, &reply_wm_class, NULL))
                 {
                         if (strlen(reply_wm_class.class_name) == 0)
@@ -442,7 +442,7 @@ void xcb_config_event_property_update(xcb_config_t* config)
 				}
                         }
 
-                        xcb_get_wm_class_reply_wipe(&reply_wm_class);
+                        xcb_icccm_get_wm_class_reply_wipe(&reply_wm_class);
                 }
 
                 config->window = reply->focus;
